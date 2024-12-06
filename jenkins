@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+
+    environment {
+        NODE_VERSION = '16' // Node.js version
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                // Clone the repository
+                git branch: 'master', url: 'https://github.com/N-liraj-khanna/Simple-Node-JS-Projects.git'
+            }
+        }
+
+        stage('Install Node.js and Dependencies') {
+            steps {
+                // Install Node.js and dependencies
+                sh '''
+                curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+                . ~/.nvm/nvm.sh
+                nvm install ${NODE_VERSION}
+                nvm use ${NODE_VERSION}
+                npm install
+                '''
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                // Run the project's tests (assuming there is a test script in package.json)
+                sh '''
+                . ~/.nvm/nvm.sh
+                nvm use ${NODE_VERSION}
+                npm test
+                '''
+            }
+        }
+
+        stage('Build Project') {
+            steps {
+                // Build the project (if applicable)
+                sh '''
+                . ~/.nvm/nvm.sh
+                nvm use ${NODE_VERSION}
+                npm run build
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline executed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check the logs for details.'
+        }
+    }
+}
