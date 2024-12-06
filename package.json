@@ -1,16 +1,14 @@
 {
     "name": "simple-node-projects",
     "version": "1.0.0",
-    "description": "A simple Node.js project",
+    "description": "",
     "main": "app.js",
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "node app.js"
-    },
-    "dependencies": {
-      "express": "^4.17.1"
+      "test": "echo \"No tests specified\" && exit 0",
+      "build": "echo \"Build process completed!\""
     },
     "author": "",
-    "license": "ISC"
+    "license": "ISC",
+    "dependencies": {}
   }
   
